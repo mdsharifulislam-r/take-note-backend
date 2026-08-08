@@ -3,7 +3,9 @@ import { connectDB } from './config/db';
 import { env } from './config/env';
 import { ensureUploadDirs } from './config/upload';
 import { seedDatabase } from './scripts/seed';
+import dns from 'dns';
 
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 export class Server {
   async start(): Promise<void> {
     ensureUploadDirs();
