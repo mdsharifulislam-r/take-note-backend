@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ override: true });
 
 const required = ['MONGODB_URI', 'JWT_SECRET'] as const;
 
@@ -19,6 +19,7 @@ export const env = {
   uploadRoot: process.env.UPLOAD_ROOT || 'uploads',
   maxFileSize: parseInt(process.env.MAX_FILE_SIZE || String(5 * 1024 * 1024), 10),
   nodeEnv: process.env.NODE_ENV || 'development',
+  isVercel: !!process.env.VERCEL,
   superAdminName: process.env.SUPER_ADMIN_NAME || 'Super Admin',
   superAdminEmail: process.env.SUPER_ADMIN_EMAIL || 'superadmin@example.com',
   superAdminPassword: process.env.SUPER_ADMIN_PASSWORD || 'superadmin123',

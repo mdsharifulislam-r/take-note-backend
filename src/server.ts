@@ -5,12 +5,18 @@ import { ensureUploadDirs } from './config/upload';
 import { seedDatabase } from './scripts/seed';
 import dns from 'dns';
 
-dns.setServers(['8.8.8.8', '8.8.4.4']);
+if (!process.env.VERCEL) {
+  dns.setServers(['8.8.8.8', '8.8.4.4']);
+}
+
 export class Server {
   async start(): Promise<void> {
     ensureUploadDirs();
     await connectDB();
-    await seedDatabase();
+
+    if (!process.env.VERCEL) {
+      await seedDatabase();
+    }
 
     app.listen(env.port, () => {
       console.log(`Server running on http://localhost:${env.port}`);
@@ -19,5 +25,7 @@ export class Server {
   }
 }
 
-const server = new Server();
-server.start();
+if (!process.env.VERCEL) {
+  const server = new Server();
+  server.start();
+}
