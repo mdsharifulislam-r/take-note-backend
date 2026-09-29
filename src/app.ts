@@ -34,6 +34,8 @@ export class App {
     this.app.use('/api', routes);
   }
 
+  
+
   private initializeErrorHandling(): void {
     this.app.use(notFoundHandler);
     this.app.use(globalErrorHandler);
